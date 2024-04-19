@@ -30,17 +30,17 @@ RUN apk add --no-cache \
   supervisor
 
 # Configure nginx - http
-COPY config/nginx.conf /etc/nginx/nginx.conf
+COPY docker-php-nginx/config/nginx.conf /etc/nginx/nginx.conf
 # Configure nginx - default server
-COPY config/conf.d /etc/nginx/conf.d/
+COPY docker-php-nginx/config/conf.d /etc/nginx/conf.d/
 
 # Configure PHP-FPM
 ENV PHP_INI_DIR /etc/php83
-COPY config/fpm-pool.conf ${PHP_INI_DIR}/php-fpm.d/www.conf
-COPY config/php.ini ${PHP_INI_DIR}/conf.d/custom.ini
+COPY docker-php-nginx/config/fpm-pool.conf ${PHP_INI_DIR}/php-fpm.d/www.conf
+COPY docker-php-nginx/config/php.ini ${PHP_INI_DIR}/conf.d/custom.ini
 
 # Configure supervisord
-COPY config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY docker-php-nginx/config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Make sure files/folders needed by the processes are accessable when they run under the nobody user
 RUN chown -R nobody.nobody /var/www/html /run /var/lib/nginx /var/log/nginx
@@ -52,7 +52,7 @@ RUN ln -s /usr/bin/php83 /usr/bin/php
 USER nobody
 
 # Add application
-COPY --chown=nobody src/ /var/www/html/
+COPY --chown=nobody Landing_V2 /var/www/html/
 
 # Expose the port nginx is reachable on
 EXPOSE 8080
