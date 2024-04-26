@@ -51,7 +51,8 @@ RUN ln -s /usr/bin/php83 /usr/bin/php
 # whatap-php 
 RUN wget https://s3.ap-northeast-2.amazonaws.com/repo.whatap.io/alpine/x86_64/whatap-php.tar.gz
 RUN tar -xvzf whatap-php.tar.gz -C /
-RUN (echo "x604lgg8dr1sg-z3qngeer4l2f0k-z7c6le1nlp006d"; echo "13.124.11.223/13.209.172.35")|/usr/whatap/php/install.sh
+#RUN (echo "x604lgg8dr1sg-z3qngeer4l2f0k-z7c6le1nlp006d"; echo "13.124.11.223/13.209.172.35")|/usr/whatap/php/install.sh
+RUN RUN /usr/whatap/php/install.sh -l x604lgg8dr1sg-z3qngeer4l2f0k-z7c6le1nlp006d -s 13.124.11.223/13.209.172.35 -e /usr/bin/php83 -p php-fpm
 
 # Switch to use a non-root user from here on
 USER nobody
